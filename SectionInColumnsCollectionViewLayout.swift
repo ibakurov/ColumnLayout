@@ -18,7 +18,7 @@ public protocol SectionInColumnsCollectionViewLayoutDataSource: class {
     func collectionView(_ collectionView: UICollectionView, sizeForFooterOf section: Int) -> CGSize
 }
 
-extension SectionInColumnsCollectionViewLayoutDataSource {
+private extension SectionInColumnsCollectionViewLayoutDataSource {
     
     func collectionView(_ collectionView: UICollectionView, sizeForHeaderOf section: Int) -> CGSize { return .zero }
     func collectionView(_ collectionView: UICollectionView, sizeForFooterOf section: Int) -> CGSize { return .zero }
@@ -27,11 +27,28 @@ extension SectionInColumnsCollectionViewLayoutDataSource {
 
 public class SectionInColumnsCollectionViewLayout: UICollectionViewLayout {
     
+    //-----------------
+    // MARK: - Structs
+    //-----------------
+    
+    fileprivate struct SectionCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
+        
+        //----------------
+        // MARK: - Variables
+        //-----------------
+        
+        open var sectionHeight: CGFloat = 0
+        open var sectionWidth: CGFloat = 0
+        open var lineSpacingBetweenColumnsAfterThisSection: CGFloat = 0
+        open var lineSpacingBetweenRowsBelowThisSection: CGFloat = 0
+        
+    }
+    
     //----------------
     // MARK: - Variables
     //-----------------
     
-    weak public var dataSource: SectionInColumnsCollectionViewLayoutDataSource?
+    public weak var dataSource: SectionInColumnsCollectionViewLayoutDataSource?
     
     fileprivate var layoutAttributes                         = [IndexPath: UICollectionViewLayoutAttributes]()
     fileprivate var layoutAttributesForSupplementaryView     = [IndexPath: [String: UICollectionViewLayoutAttributes]]()
@@ -334,18 +351,4 @@ public class SectionInColumnsCollectionViewLayout: UICollectionViewLayout {
     public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return layoutAttributes[indexPath]
     }
-    
-}
-
-public class SectionCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
-    
-    //----------------
-    // MARK: - Variables
-    //-----------------
-    
-    open var sectionHeight: CGFloat = 0
-    open var sectionWidth: CGFloat = 0
-    open var lineSpacingBetweenColumnsAfterThisSection: CGFloat = 0
-    open var lineSpacingBetweenRowsBelowThisSection: CGFloat = 0
-    
 }
