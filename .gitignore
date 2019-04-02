@@ -17,6 +17,7 @@ Example/*.perspectivev3
 !Example/default.perspectivev3
 Example/xcuserdata/
 
+
 ## Other
 Example/*.moved-aside
 Example/*.xccheckout
@@ -47,7 +48,7 @@ Example/.build/
 #
 Pods/
 Example/Pods/
-Example/Pdofile.lock
+Example/Podfile.lock
 
 # Carthage
 #
