@@ -6,7 +6,7 @@
 //  Copyright © 2017 Royal Bank of Canada. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public protocol MultiColumnLayoutCollectionViewLayoutDataSource: class {
     func numberOfColumns(_ collectionView: UICollectionView) -> Int
@@ -31,16 +31,16 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
     // MARK: - Structs
     //-----------------
     
-    fileprivate struct SectionCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
+    fileprivate class SectionCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
         
         //----------------
         // MARK: - Variables
         //-----------------
         
-        open var sectionHeight: CGFloat = 0
-        open var sectionWidth: CGFloat = 0
-        open var lineSpacingBetweenColumnsAfterThisSection: CGFloat = 0
-        open var lineSpacingBetweenRowsBelowThisSection: CGFloat = 0
+        var sectionHeight: CGFloat = 0
+        var sectionWidth: CGFloat = 0
+        var lineSpacingBetweenColumnsAfterThisSection: CGFloat = 0
+        var lineSpacingBetweenRowsBelowThisSection: CGFloat = 0
         
     }
     
@@ -50,10 +50,10 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
     
     public weak var dataSource: MultiColumnLayoutCollectionViewLayoutDataSource?
     
-    fileprivate var layoutAttributes                         = [IndexPath: UICollectionViewLayoutAttributes]()
-    fileprivate var layoutAttributesForSupplementaryView     = [IndexPath: [String: UICollectionViewLayoutAttributes]]()
-    fileprivate var collectionViewContentWidth: CGFloat      = 0
-    fileprivate var collectionViewContentHeight: CGFloat     = 0
+    fileprivate var layoutAttributes = [IndexPath: UICollectionViewLayoutAttributes]()
+    fileprivate var layoutAttributesForSupplementaryView = [IndexPath: [String: UICollectionViewLayoutAttributes]]()
+    fileprivate var collectionViewContentWidth: CGFloat = 0
+    fileprivate var collectionViewContentHeight: CGFloat = 0
     
     //----------------
     // MARK: - Layout Setup
@@ -120,12 +120,12 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
                 let headerCenter = CGPoint(x: sectionOrigin.x + headerSize.width / 2, y: sectionOrigin.y + headerSize.height / 2)
                 
                 //Generate proper UICollectionViewLayoutAttributes and assign appropriate data to it
-                let headerAttribute               = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: IndexPath(item: 0, section: section))
+                let headerAttribute               = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, with: IndexPath(item: 0, section: section))
                 headerAttribute.frame             = CGRect(origin: headerOrigin, size: headerSize)
                 headerAttribute.size              = headerSize
                 headerAttribute.center            = headerCenter
                 
-                layoutAttributesForSupplementaryView[IndexPath(item: 0, section: section)] = [UICollectionElementKindSectionHeader: headerAttribute]
+                layoutAttributesForSupplementaryView[IndexPath(item: 0, section: section)] = [UICollectionView.elementKindSectionHeader: headerAttribute]
                 
                 if headerSize.width > sectionWidth {
                     sectionWidth = headerSize.width
@@ -177,12 +177,12 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
                 let footerCenter = CGPoint(x: footerOrigin.x + footerSize.width / 2, y: footerOrigin.y + footerSize.height / 2)
                 
                 //Generate proper UICollectionViewLayoutAttributes and assign appropriate data to it
-                let footerAttribute               = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: IndexPath(item: numberOfItems, section: section))
+                let footerAttribute               = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, with: IndexPath(item: numberOfItems, section: section))
                 footerAttribute.frame             = CGRect(origin: footerOrigin, size: footerSize)
                 footerAttribute.size              = footerSize
                 footerAttribute.center            = footerCenter
                 
-                layoutAttributesForSupplementaryView[IndexPath(item: numberOfItems, section: section)] = [UICollectionElementKindSectionFooter: footerAttribute]
+                layoutAttributesForSupplementaryView[IndexPath(item: numberOfItems, section: section)] = [UICollectionView.elementKindSectionFooter: footerAttribute]
                 
                 if footerSize.width > sectionWidth {
                     sectionWidth = footerSize.width
@@ -193,7 +193,7 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
             // -----------------
 
             let sectionAttribute = SectionCollectionViewLayoutAttributes()
-            sectionAttribute.sectionWidth  = sectionWidth
+            sectionAttribute.sectionWidth = sectionWidth
             sectionAttribute.sectionHeight = sectionHeight
             sectionAttribute.lineSpacingBetweenColumnsAfterThisSection = dataSource?.collectionView(collectionView, lineSpacingBetweenColumnsAfter: section) ?? 0.0
             sectionAttribute.lineSpacingBetweenRowsBelowThisSection = dataSource?.collectionView(collectionView, lineSpacingBetweenRowsBelow: section) ?? 0.0
