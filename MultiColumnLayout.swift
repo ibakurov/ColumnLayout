@@ -1,5 +1,5 @@
 //
-//  SectionInColumnsCollectionViewLayout.swift
+//  MultiColumnLayoutCollectionViewLayout.swift
 //  AVA
 //
 //  Created by Illya Bakurov on 2017-12-13.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol SectionInColumnsCollectionViewLayoutDataSource: class {
+public protocol MultiColumnLayoutCollectionViewLayoutDataSource: class {
     func numberOfColumns(_ collectionView: UICollectionView) -> Int
     func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenColumnsAfter section: Int) -> CGFloat
     func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenRowsBelow section: Int) -> CGFloat
@@ -18,14 +18,14 @@ public protocol SectionInColumnsCollectionViewLayoutDataSource: class {
     func collectionView(_ collectionView: UICollectionView, sizeForFooterOf section: Int) -> CGSize
 }
 
-private extension SectionInColumnsCollectionViewLayoutDataSource {
+private extension MultiColumnLayoutCollectionViewLayoutDataSource {
     
     func collectionView(_ collectionView: UICollectionView, sizeForHeaderOf section: Int) -> CGSize { return .zero }
     func collectionView(_ collectionView: UICollectionView, sizeForFooterOf section: Int) -> CGSize { return .zero }
     func collectionView(_ collectionView: UICollectionView, interitemSpacingInSection section: Int) -> CGFloat { return 0.0 }
 }
 
-public class SectionInColumnsCollectionViewLayout: UICollectionViewLayout {
+public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
     
     //-----------------
     // MARK: - Structs
@@ -48,7 +48,7 @@ public class SectionInColumnsCollectionViewLayout: UICollectionViewLayout {
     // MARK: - Variables
     //-----------------
     
-    public weak var dataSource: SectionInColumnsCollectionViewLayoutDataSource?
+    public weak var dataSource: MultiColumnLayoutCollectionViewLayoutDataSource?
     
     fileprivate var layoutAttributes                         = [IndexPath: UICollectionViewLayoutAttributes]()
     fileprivate var layoutAttributesForSupplementaryView     = [IndexPath: [String: UICollectionViewLayoutAttributes]]()
