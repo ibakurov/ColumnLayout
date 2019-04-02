@@ -17,7 +17,7 @@ s.author           = { 'ibakurov' => 'bakurov.illya@gmail.com' }
 s.social_media_url = 'http://twitter.com/ibakurov'
 
 s.source           = { :git => 'https://github.com/ibakurov/MultiColumnLayout.git', :tag => s.version }
-s.source_files     = 'MultiColumnLayout/Classes/*.swift'
+s.source_files     = 'MultiColumnLayout/Classes/**/*.{swift}'
 
 s.ios.deployment_target = '10.0'
 s.swift_version = '4.2'
