@@ -3,41 +3,41 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## Build generated
-build/
-DerivedData/
+Example/build/
+Example/DerivedData/
 
 ## Various settings
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-xcuserdata/
+Example/*.pbxuser
+!Example/default.pbxuser
+Example/*.mode1v3
+!Example/default.mode1v3
+Example/*.mode2v3
+!Example/default.mode2v3
+Example/*.perspectivev3
+!Example/default.perspectivev3
+Example/xcuserdata/
 
 ## Other
-*.moved-aside
-*.xccheckout
-*.xcscmblueprint
+Example/*.moved-aside
+Example/*.xccheckout
+Example/*.xcscmblueprint
 
 ## Obj-C/Swift specific
-*.hmap
-*.ipa
-*.dSYM.zip
-*.dSYM
+Example/*.hmap
+Example/*.ipa
+Example/*.dSYM.zip
+Example/*.dSYM
 
 ## Playgrounds
-timeline.xctimeline
-playground.xcworkspace
+Example/timeline.xctimeline
+Example/playground.xcworkspace
 
 # Swift Package Manager
 #
 # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
 # Packages/
 # Package.pins
-.build/
+Example/.build/
 
 # CocoaPods
 #
@@ -46,13 +46,15 @@ playground.xcworkspace
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
 Pods/
+Example/Pods/
+Example/Pdofile.lock
 
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
 # Carthage/Checkouts
 
-Carthage/Build
+Example/Carthage/Build
 
 # fastlane
 #
@@ -61,7 +63,7 @@ Carthage/Build
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/#source-control
 
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots
-fastlane/test_output
+Example/fastlane/report.xml
+Example/fastlane/Preview.html
+Example/fastlane/screenshots
+Example/fastlane/test_output
