@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountInfoCVCell: UICollectionViewCell, Reusable {
+class AccountInfoCVCell: SelfSizingHeightCVCell, Reusable {
 
     //-----------------
     // MARK: - Variables

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Account {
+public struct Account: Hashable {
     
     //-----------------
     // MARK: - Enums

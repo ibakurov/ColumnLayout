@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		2A728792800F79B4DB514063 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC325B1D55470D7BCA0BCBD /* Pods_Example.framework */; };
+		9F2752A92255976E005F0842 /* Institution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2752A82255976E005F0842 /* Institution.swift */; };
+		9F2752AB225598C9005F0842 /* InstitutionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2752AA225598C9005F0842 /* InstitutionDataProvider.swift */; };
+		9F2752B12255A239005F0842 /* InstitutionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2752AF2255A239005F0842 /* InstitutionHeaderView.swift */; };
+		9F2752B22255A239005F0842 /* InstitutionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F2752B02255A239005F0842 /* InstitutionHeaderView.xib */; };
+		9F2752B5225652FD005F0842 /* SelfSizingHeightReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2752B3225652FD005F0842 /* SelfSizingHeightReusableView.swift */; };
+		9F2752B6225652FD005F0842 /* SelfSizingHeightCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2752B4225652FD005F0842 /* SelfSizingHeightCVCell.swift */; };
+		9F2752B922565F8C005F0842 /* DisclosureFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2752B722565F8C005F0842 /* DisclosureFooterView.swift */; };
+		9F2752BA22565F8C005F0842 /* DisclosureFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F2752B822565F8C005F0842 /* DisclosureFooterView.xib */; };
 		9FAB500C2253F6B60069A676 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB500B2253F6B60069A676 /* AppDelegate.swift */; };
 		9FAB500E2253F6B60069A676 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB500D2253F6B60069A676 /* MainVC.swift */; };
 		9FAB50112253F6B60069A676 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FAB500F2253F6B60069A676 /* Main.storyboard */; };
@@ -25,6 +33,14 @@
 /* Begin PBXFileReference section */
 		00FD0DD01D6C7EDB9EB8B675 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
 		1FC325B1D55470D7BCA0BCBD /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F2752A82255976E005F0842 /* Institution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Institution.swift; sourceTree = "<group>"; };
+		9F2752AA225598C9005F0842 /* InstitutionDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstitutionDataProvider.swift; sourceTree = "<group>"; };
+		9F2752AF2255A239005F0842 /* InstitutionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstitutionHeaderView.swift; sourceTree = "<group>"; };
+		9F2752B02255A239005F0842 /* InstitutionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstitutionHeaderView.xib; sourceTree = "<group>"; };
+		9F2752B3225652FD005F0842 /* SelfSizingHeightReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfSizingHeightReusableView.swift; sourceTree = "<group>"; };
+		9F2752B4225652FD005F0842 /* SelfSizingHeightCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfSizingHeightCVCell.swift; sourceTree = "<group>"; };
+		9F2752B722565F8C005F0842 /* DisclosureFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclosureFooterView.swift; sourceTree = "<group>"; };
+		9F2752B822565F8C005F0842 /* DisclosureFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DisclosureFooterView.xib; sourceTree = "<group>"; };
 		9FAB50082253F6B60069A676 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FAB500B2253F6B60069A676 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FAB500D2253F6B60069A676 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
@@ -69,6 +85,17 @@
 				00FD0DD01D6C7EDB9EB8B675 /* Pods-Example.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		9F2752AE2255A214005F0842 /* SupplementaryViews */ = {
+			isa = PBXGroup;
+			children = (
+				9F2752AF2255A239005F0842 /* InstitutionHeaderView.swift */,
+				9F2752B02255A239005F0842 /* InstitutionHeaderView.xib */,
+				9F2752B722565F8C005F0842 /* DisclosureFooterView.swift */,
+				9F2752B822565F8C005F0842 /* DisclosureFooterView.xib */,
+			);
+			path = SupplementaryViews;
 			sourceTree = "<group>";
 		};
 		9FAB4FFF2253F6B60069A676 = {
@@ -124,6 +151,7 @@
 			children = (
 				9FAB500F2253F6B60069A676 /* Main.storyboard */,
 				9FAB500D2253F6B60069A676 /* MainVC.swift */,
+				9F2752AE2255A214005F0842 /* SupplementaryViews */,
 				9FAB50202253FA050069A676 /* CVCells */,
 			);
 			path = Views;
@@ -143,6 +171,8 @@
 			children = (
 				9FAB50342255170A0069A676 /* Extensions */,
 				9FAB50262253FBD30069A676 /* Reusable.swift */,
+				9F2752B4225652FD005F0842 /* SelfSizingHeightCVCell.swift */,
+				9F2752B3225652FD005F0842 /* SelfSizingHeightReusableView.swift */,
 			);
 			path = Utilies;
 			sourceTree = "<group>";
@@ -151,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				9FAB5031225513A20069A676 /* DataPdoviders */,
+				9F2752A82255976E005F0842 /* Institution.swift */,
 				9FAB502D22541F910069A676 /* Account.swift */,
 			);
 			path = Model;
@@ -159,6 +190,7 @@
 		9FAB5031225513A20069A676 /* DataPdoviders */ = {
 			isa = PBXGroup;
 			children = (
+				9F2752AA225598C9005F0842 /* InstitutionDataProvider.swift */,
 				9FAB50322255140A0069A676 /* AccountDataProvider.swift */,
 			);
 			path = DataPdoviders;
@@ -235,7 +267,9 @@
 			files = (
 				9FAB502B2253FBE70069A676 /* AccountInfoCVCell.xib in Resources */,
 				9FAB50162253F6B70069A676 /* LaunchScreen.storyboard in Resources */,
+				9F2752BA22565F8C005F0842 /* DisclosureFooterView.xib in Resources */,
 				9FAB50132253F6B70069A676 /* Assets.xcassets in Resources */,
+				9F2752B22255A239005F0842 /* InstitutionHeaderView.xib in Resources */,
 				9FAB50112253F6B60069A676 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,11 +328,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F2752B922565F8C005F0842 /* DisclosureFooterView.swift in Sources */,
+				9F2752B6225652FD005F0842 /* SelfSizingHeightCVCell.swift in Sources */,
+				9F2752A92255976E005F0842 /* Institution.swift in Sources */,
 				9FAB500E2253F6B60069A676 /* MainVC.swift in Sources */,
 				9FAB50332255140A0069A676 /* AccountDataProvider.swift in Sources */,
 				9FAB5030225511C80069A676 /* Double+Extension.swift in Sources */,
 				9FAB502A2253FBE70069A676 /* AccountInfoCVCell.swift in Sources */,
+				9F2752AB225598C9005F0842 /* InstitutionDataProvider.swift in Sources */,
+				9F2752B5225652FD005F0842 /* SelfSizingHeightReusableView.swift in Sources */,
 				9FAB5036225517180069A676 /* Date+Extension.swift in Sources */,
+				9F2752B12255A239005F0842 /* InstitutionHeaderView.swift in Sources */,
 				9FAB500C2253F6B60069A676 /* AppDelegate.swift in Sources */,
 				9FAB50272253FBD30069A676 /* Reusable.swift in Sources */,
 				9FAB502E22541F910069A676 /* Account.swift in Sources */,
