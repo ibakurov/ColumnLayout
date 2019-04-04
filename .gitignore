@@ -68,3 +68,5 @@ Example/fastlane/report.xml
 Example/fastlane/Preview.html
 Example/fastlane/screenshots
 Example/fastlane/test_output
+Example/Example.xcworkspace/xcuserdata/*
+Example/Example.xcodeproj/xcuserdata/*

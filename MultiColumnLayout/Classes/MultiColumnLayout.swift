@@ -10,18 +10,20 @@ import UIKit
 
 public protocol MultiColumnLayoutCollectionViewLayoutDataSource: class {
     func numberOfColumns(_ collectionView: UICollectionView) -> Int
-    func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenColumnsAfter section: Int) -> CGFloat
-    func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenRowsBelow section: Int) -> CGFloat
     func collectionView(_ collectionView: UICollectionView, sizeForItemAt indexPath: IndexPath) -> CGSize
-    func collectionView(_ collectionView: UICollectionView, interitemSpacingInSection section: Int) -> CGFloat
     func collectionView(_ collectionView: UICollectionView, sizeForHeaderOf section: Int) -> CGSize
     func collectionView(_ collectionView: UICollectionView, sizeForFooterOf section: Int) -> CGSize
+    func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenColumnsAfter section: Int) -> CGFloat
+    func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenRowsBelow section: Int) -> CGFloat
+    func collectionView(_ collectionView: UICollectionView, interitemSpacingInSection section: Int) -> CGFloat
 }
 
-private extension MultiColumnLayoutCollectionViewLayoutDataSource {
-    
+public extension MultiColumnLayoutCollectionViewLayoutDataSource {
+    func collectionView(_ collectionView: UICollectionView, sizeForItemAt indexPath: IndexPath) -> CGSize { return .zero }
     func collectionView(_ collectionView: UICollectionView, sizeForHeaderOf section: Int) -> CGSize { return .zero }
     func collectionView(_ collectionView: UICollectionView, sizeForFooterOf section: Int) -> CGSize { return .zero }
+    func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenColumnsAfter section: Int) -> CGFloat { return 0.0 }
+    func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenRowsBelow section: Int) -> CGFloat { return 0.0 }
     func collectionView(_ collectionView: UICollectionView, interitemSpacingInSection section: Int) -> CGFloat { return 0.0 }
 }
 
@@ -144,7 +146,7 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
                 var originForItem: CGPoint = .zero
                 originForItem.x = sectionOrigin.x
                 originForItem.y += sectionOrigin.y + sectionHeight
-
+                
                 //Grab item data from data source about the size
                 let sizeForItem             = dataSource?.collectionView(collectionView, sizeForItemAt: indexPath) ?? .zero
                 let centerForItem           = CGPoint(x: sectionOrigin.x + sizeForItem.width / 2, y: originForItem.y + sizeForItem.height / 2)
@@ -191,7 +193,7 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
             }
             
             // -----------------
-
+            
             let sectionAttribute = SectionCollectionViewLayoutAttributes()
             sectionAttribute.sectionWidth = sectionWidth
             sectionAttribute.sectionHeight = sectionHeight
