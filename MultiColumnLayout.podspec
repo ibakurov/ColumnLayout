@@ -2,11 +2,11 @@
 Pod::Spec.new do |s|
 
 s.name             = 'MultiColumnLayout'
-s.version          = '0.1.0'
+s.version          = '0.2.0'
 
 s.summary          = 'The layout for collection view to support multicolumn view.'
 s.description      = <<-DESC
-This layout can be used on iPhone and iPad. It can also change the number of columns after the rotation to have more dynaic views.
+This layout can be used on iPhone and iPad. It can also change the number of columns after the rotation to have more dynamic views.
 DESC
 
 s.homepage         = 'https://github.com/ibakurov/MultiColumnLayout'

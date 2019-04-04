@@ -11,8 +11,7 @@ import UIKit
 public protocol MultiColumnLayoutCollectionViewLayoutDataSource: class {
     func numberOfColumns(_ collectionView: UICollectionView) -> Int
     func collectionView(_ collectionView: UICollectionView, sizeForItemAt indexPath: IndexPath) -> CGSize
-    func collectionView(_ collectionView: UICollectionView, sizeForHeaderOf section: Int) -> CGSize
-    func collectionView(_ collectionView: UICollectionView, sizeForFooterOf section: Int) -> CGSize
+    func collectionView(_ collectionView: UICollectionView, sizeForSupplementaryElementOfKind kind: String, section: Int) -> CGSize
     func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenColumnsAfter section: Int) -> CGFloat
     func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenRowsBelow section: Int) -> CGFloat
     func collectionView(_ collectionView: UICollectionView, interitemSpacingInSection section: Int) -> CGFloat
@@ -20,8 +19,7 @@ public protocol MultiColumnLayoutCollectionViewLayoutDataSource: class {
 
 public extension MultiColumnLayoutCollectionViewLayoutDataSource {
     func collectionView(_ collectionView: UICollectionView, sizeForItemAt indexPath: IndexPath) -> CGSize { return .zero }
-    func collectionView(_ collectionView: UICollectionView, sizeForHeaderOf section: Int) -> CGSize { return .zero }
-    func collectionView(_ collectionView: UICollectionView, sizeForFooterOf section: Int) -> CGSize { return .zero }
+    func collectionView(_ collectionView: UICollectionView, sizeForSupplementaryElementOfKind kind: String, section: Int) -> CGSize { return .zero }
     func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenColumnsAfter section: Int) -> CGFloat { return 0.0 }
     func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenRowsBelow section: Int) -> CGFloat { return 0.0 }
     func collectionView(_ collectionView: UICollectionView, interitemSpacingInSection section: Int) -> CGFloat { return 0.0 }
@@ -116,7 +114,7 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
             // -----------------
             
             //Get proper layout attributes for header
-            let headerSize = dataSource?.collectionView(collectionView, sizeForHeaderOf: section) ?? .zero
+            let headerSize = sizeOfViewForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader, inCollectionView: collectionView, forIndexPath: IndexPath(item: 0, section: section))
             if headerSize.height > 0.0 {
                 let headerOrigin = CGPoint(x: sectionOrigin.x, y: sectionOrigin.y)
                 let headerCenter = CGPoint(x: sectionOrigin.x + headerSize.width / 2, y: sectionOrigin.y + headerSize.height / 2)
@@ -148,8 +146,8 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
                 originForItem.y += sectionOrigin.y + sectionHeight
                 
                 //Grab item data from data source about the size
-                let sizeForItem             = dataSource?.collectionView(collectionView, sizeForItemAt: indexPath) ?? .zero
-                let centerForItem           = CGPoint(x: sectionOrigin.x + sizeForItem.width / 2, y: originForItem.y + sizeForItem.height / 2)
+                let sizeForItem = sizeOfCell(inCollectionView: collectionView, forIndexPath: indexPath)
+                let centerForItem = CGPoint(x: sectionOrigin.x + sizeForItem.width / 2, y: originForItem.y + sizeForItem.height / 2)
                 //Generate proper UICollectionViewLayoutAttributes and assign appropriate data to it
                 let attribute               = UICollectionViewLayoutAttributes(forCellWith: indexPath)
                 attribute.frame             = CGRect(origin: originForItem, size: sizeForItem)
@@ -173,7 +171,7 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
             // -----------------
             
             //Get proper layout attributes for footer
-            let footerSize = dataSource?.collectionView(collectionView, sizeForFooterOf: section) ?? .zero
+            let footerSize = sizeOfViewForSupplementaryElement(ofKind: UICollectionView.elementKindSectionFooter, inCollectionView: collectionView, forIndexPath: IndexPath(item: numberOfItems, section: section))
             if footerSize.height > 0.0 {
                 let footerOrigin = CGPoint(x: sectionOrigin.x, y: sectionOrigin.y + sectionHeight)
                 let footerCenter = CGPoint(x: footerOrigin.x + footerSize.width / 2, y: footerOrigin.y + footerSize.height / 2)
@@ -262,7 +260,7 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
                 }
                 
                 //Calcualting sizes
-                let sizeForItem = dataSource?.collectionView(collectionView, sizeForItemAt: indexPath) ?? .zero
+                let sizeForItem = sizeOfCell(inCollectionView: collectionView, forIndexPath: indexPath)
                 if sizeForItem.width > sectionWidth {
                     sectionWidth = sizeForItem.width
                 }
@@ -274,8 +272,8 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
                 }
             }
             
-            let headerSize = dataSource?.collectionView(collectionView, sizeForHeaderOf: section) ?? .zero
-            let footerSize = dataSource?.collectionView(collectionView, sizeForFooterOf: section) ?? .zero
+            let headerSize = sizeOfViewForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader, inCollectionView: collectionView, forIndexPath: IndexPath(item: numberOfItems, section: section))
+            let footerSize = sizeOfViewForSupplementaryElement(ofKind: UICollectionView.elementKindSectionFooter, inCollectionView: collectionView, forIndexPath: IndexPath(item: numberOfItems, section: section))
             
             if headerSize.width > sectionWidth {
                 sectionWidth = headerSize.width
@@ -352,5 +350,32 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
     
     public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return layoutAttributes[indexPath]
+    }
+}
+
+extension MultiColumnLayoutCollectionViewLayout {
+    
+    func sizeOfCell(inCollectionView collectionView: UICollectionView, forIndexPath indexPath: IndexPath) -> CGSize {
+        let sizeForItem = dataSource?.collectionView(collectionView, sizeForItemAt: indexPath) ?? .zero
+        var estimatedSizeForItem = collectionView.dataSource?.collectionView(collectionView, cellForItemAt: indexPath).preferredLayoutAttributesFitting(UICollectionViewLayoutAttributes(forCellWith: indexPath)).size ?? sizeForItem
+        if estimatedSizeForItem.width == 0 {
+            estimatedSizeForItem.width = sizeForItem.width
+        }
+        if estimatedSizeForItem.height == 0 {
+            estimatedSizeForItem.height = sizeForItem.height
+        }
+        return estimatedSizeForItem
+    }
+    
+    func sizeOfViewForSupplementaryElement(ofKind kind: String, inCollectionView collectionView: UICollectionView, forIndexPath indexPath: IndexPath) -> CGSize {
+        var viewSize: CGSize = dataSource?.collectionView(collectionView, sizeForSupplementaryElementOfKind: kind, section: indexPath.section) ?? .zero
+        var estimatedSizeForView = collectionView.dataSource?.collectionView?(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath).preferredLayoutAttributesFitting(UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: kind, with: indexPath)).size ?? viewSize
+        if estimatedSizeForView.width == 0 {
+            estimatedSizeForView.width = viewSize.width
+        }
+        if estimatedSizeForView.height == 0 {
+            estimatedSizeForView.height = viewSize.height
+        }
+        return estimatedSizeForView
     }
 }
