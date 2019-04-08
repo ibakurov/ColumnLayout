@@ -1,5 +1,5 @@
 //
-//  Institution.swift
+//  Section.swift
 //  Example
 //
 //  Created by Illya Bakurov on 4/3/19.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-public struct Institution {
+public struct Section {
     
     //-----------------
     // MARK: - Variables
     //-----------------
 
-    var institutionTitle: String?
-    var accounts: [Account] = []
+    var sectionTitle: String?
+    var items: [Item] = []
 }

@@ -21,18 +21,18 @@ class MainVC: UIViewController {
             multiColumnLayout.dataSource = self
             collectionView.setCollectionViewLayout(multiColumnLayout, animated: false)
             
-            collectionView.register(UINib(nibName: InstitutionHeaderView.nibName, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: InstitutionHeaderView.reuseIdentifier)
-            collectionView.register(UINib(nibName: DisclosureFooterView.nibName, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DisclosureFooterView.reuseIdentifier)
-            collectionView.register(UINib(nibName: AccountInfoCVCell.nibName, bundle: nil), forCellWithReuseIdentifier: AccountInfoCVCell.reuseIdentifier)
+            collectionView.register(UINib(nibName: SectionHeaderView.nibName, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeaderView.reuseIdentifier)
+            collectionView.register(UINib(nibName: SectionFooterView.nibName, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: SectionFooterView.reuseIdentifier)
+            collectionView.register(UINib(nibName: ItemCVCell.nibName, bundle: nil), forCellWithReuseIdentifier: ItemCVCell.reuseIdentifier)
             
             collectionView.dataSource = self
             collectionView.delegate = self
         }
     }
     
-    var numberOfColumns = 1
+    var numberOfColumns = 2
     
-    var institutions = InstitutionDataProvider.shared.institutions
+    var sections = SectionDataProvider.shared.sections
     
     //-----------------
     // MARK: - Initialization
@@ -55,21 +55,21 @@ class MainVC: UIViewController {
 extension MainVC: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return institutions.count
+        return sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return institutions[section].accounts.count
+        return sections[section].items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: InstitutionHeaderView.reuseIdentifier, for: indexPath) as! InstitutionHeaderView
-            view.setup(withInstitution: institutions[indexPath.section])
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeaderView.reuseIdentifier, for: indexPath) as! SectionHeaderView
+            view.setup(withSection: sections[indexPath.section])
             return view
         case UICollectionView.elementKindSectionFooter:
-            let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: DisclosureFooterView.reuseIdentifier, for: indexPath) as! DisclosureFooterView
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: SectionFooterView.reuseIdentifier, for: indexPath) as! SectionFooterView
             return view
         default:
             return UICollectionReusableView()
@@ -77,8 +77,9 @@ extension MainVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AccountInfoCVCell.reuseIdentifier, for: indexPath) as! AccountInfoCVCell
-        cell.setup(withAccount: institutions[indexPath.section].accounts[indexPath.item])
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCVCell.reuseIdentifier, for: indexPath) as! ItemCVCell
+        cell.setup(withItem: sections[indexPath.section].items[indexPath.item], preferredWidthForCell: collectionView.frame.width / CGFloat(numberOfColumns) - 10)
+        
         return cell
     }
 }
@@ -93,7 +94,7 @@ extension MainVC: MultiColumnLayoutCollectionViewLayoutDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenColumnsAfter section: Int) -> CGFloat {
-        return 10.0
+        return (section + 1) % numberOfColumns == 0 ? 0 : 10.0
     }
 
     func collectionView(_ collectionView: UICollectionView, lineSpacingBetweenRowsBelow section: Int) -> CGFloat {
@@ -105,15 +106,15 @@ extension MainVC: MultiColumnLayoutCollectionViewLayoutDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width / CGFloat(numberOfColumns) - 10, height: 50)
+        return CGSize(width: collectionView.frame.width / CGFloat(numberOfColumns) - 10/2, height: 50)
     }
     
     func collectionView(_ collectionView: UICollectionView, sizeForSupplementaryElementOfKind kind: String, section: Int) -> CGSize {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            return CGSize(width: collectionView.frame.width / CGFloat(numberOfColumns) - 10, height: 100)
+            return CGSize(width: collectionView.frame.width / CGFloat(numberOfColumns) - 10/2, height: 100)
         case UICollectionView.elementKindSectionFooter:
-            return CGSize(width: collectionView.frame.width / CGFloat(numberOfColumns) - 10, height: 100)
+            return CGSize(width: collectionView.frame.width / CGFloat(numberOfColumns) - 10/2, height: 100)
         default:
             return .zero
         }

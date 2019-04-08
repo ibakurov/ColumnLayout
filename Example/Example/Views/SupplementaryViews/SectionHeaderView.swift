@@ -1,5 +1,5 @@
 //
-//  InstitutionHeaderView.swift
+//  SectionHeaderView.swift
 //  Example
 //
 //  Created by Illya Bakurov on 4/3/19.
@@ -8,16 +8,16 @@
 
 import UIKit
 
-class InstitutionHeaderView: SelfSizingHeightReusableView, Reusable {
+class SectionHeaderView: SelfSizingHeightReusableView, Reusable {
 
     //-----------------
     // MARK: - Variables
     //-----------------
     
-    @IBOutlet weak var institutionTitleLbl: UILabel!
+    @IBOutlet weak var sectionTitleLbl: UILabel!
     
     override func prepareForReuse() {
-        institutionTitleLbl.text = nil
+        sectionTitleLbl.text = nil
         
         super.prepareForReuse()
     }
@@ -26,9 +26,9 @@ class InstitutionHeaderView: SelfSizingHeightReusableView, Reusable {
 //-----------------
 // MARK: - Setup
 //-----------------
-extension InstitutionHeaderView {
+extension SectionHeaderView {
     
-    func setup(withInstitution institution: Institution) {
-        institutionTitleLbl.text = institution.institutionTitle
+    func setup(withSection section: Section) {
+        sectionTitleLbl.text = section.sectionTitle
     }
 }

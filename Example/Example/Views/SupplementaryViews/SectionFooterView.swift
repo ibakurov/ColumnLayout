@@ -1,5 +1,5 @@
 //
-//  DisclosureFooterView.swift
+//  SectionFooterView.swift
 //  Example
 //
 //  Created by Illya Bakurov on 4/4/19.
@@ -8,4 +8,4 @@
 
 import UIKit
 
-class DisclosureFooterView: SelfSizingHeightReusableView, Reusable {}
+class SectionFooterView: SelfSizingHeightReusableView, Reusable {}
