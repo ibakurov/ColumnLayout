@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
 s.name             = 'MultiColumnLayout'
-s.version          = '0.2.0'
+s.version          = '0.2.1'
 
 s.summary          = 'The layout for collection view to support multicolumn view.'
 s.description      = <<-DESC

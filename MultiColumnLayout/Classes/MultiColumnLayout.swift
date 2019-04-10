@@ -50,8 +50,8 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
     
     public weak var dataSource: MultiColumnLayoutCollectionViewLayoutDataSource?
     
-    fileprivate var layoutAttributes = [IndexPath: UICollectionViewLayoutAttributes]()
-    fileprivate var layoutAttributesForSupplementaryView = [IndexPath: [String: UICollectionViewLayoutAttributes]]()
+    fileprivate var layoutAttributes: [IndexPath: UICollectionViewLayoutAttributes] = [:]
+    fileprivate var layoutAttributesForSupplementaryView: [Int: [String: UICollectionViewLayoutAttributes]] = [:]
     fileprivate var collectionViewContentWidth: CGFloat = 0
     fileprivate var collectionViewContentHeight: CGFloat = 0
     
@@ -125,7 +125,10 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
                 headerAttribute.size              = headerSize
                 headerAttribute.center            = headerCenter
                 
-                layoutAttributesForSupplementaryView[IndexPath(item: 0, section: section)] = [UICollectionView.elementKindSectionHeader: headerAttribute]
+                if layoutAttributesForSupplementaryView[section] == nil {
+                    layoutAttributesForSupplementaryView[section] = [:]
+                }
+                layoutAttributesForSupplementaryView[section]?[UICollectionView.elementKindSectionHeader] = headerAttribute
                 
                 if headerSize.width > sectionWidth {
                     sectionWidth = headerSize.width
@@ -182,7 +185,10 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
                 footerAttribute.size              = footerSize
                 footerAttribute.center            = footerCenter
                 
-                layoutAttributesForSupplementaryView[IndexPath(item: numberOfItems, section: section)] = [UICollectionView.elementKindSectionFooter: footerAttribute]
+                if layoutAttributesForSupplementaryView[section] == nil {
+                    layoutAttributesForSupplementaryView[section] = [:]
+                }
+                layoutAttributesForSupplementaryView[section]?[UICollectionView.elementKindSectionFooter] = footerAttribute
                 
                 if footerSize.width > sectionWidth {
                     sectionWidth = footerSize.width
@@ -345,7 +351,7 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
     }
     
     public override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return layoutAttributesForSupplementaryView[indexPath]?[elementKind]
+        return layoutAttributesForSupplementaryView[indexPath.section]?[elementKind]
     }
     
     public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
