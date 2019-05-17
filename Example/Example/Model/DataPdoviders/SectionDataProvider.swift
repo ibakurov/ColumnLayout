@@ -17,7 +17,7 @@ public class SectionDataProvider {
     static let shared = SectionDataProvider()
     
     public var sections: [Section] = []
-    private var sectionTitles: [String] = ["First", "Second"]//["First", "Second", "Third", "Fourth", "Fifth"]
+    private var sectionTitles: [String] = ["First", "Second", "Third", "Fourth", "Fifth"]
     
     //-----------------
     // MARK: - Initialization

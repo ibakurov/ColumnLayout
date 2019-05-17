@@ -55,6 +55,8 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
     fileprivate var collectionViewContentWidth: CGFloat = 0
     fileprivate var collectionViewContentHeight: CGFloat = 0
     
+    public var contentInset: UIEdgeInsets = .zero
+    
     //----------------
     // MARK: - Layout Setup
     //-----------------
@@ -84,6 +86,9 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
             var sectionWidth: CGFloat  = 0
             var sectionHeight: CGFloat = 0
             var sectionOrigin: CGPoint = .zero
+            
+            sectionOrigin.x += contentInset.left
+            sectionOrigin.y += contentInset.top
             
             // -----------------
             
@@ -220,8 +225,8 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
         var collectionViewContentWidth: CGFloat     = 0
         var collectionViewContentHeight: CGFloat    = 0
         
-        collectionViewContentWidth  += collectionView.contentInset.left + collectionView.contentInset.right
-        collectionViewContentHeight += collectionView.contentInset.top + collectionView.contentInset.bottom
+        collectionViewContentWidth  -= contentInset.left + contentInset.right
+        collectionViewContentHeight += contentInset.top + contentInset.bottom
         
         let numberOfSections = collectionView.numberOfSections
         let numberOfColumns  = dataSource?.numberOfColumns(collectionView) ?? 1
@@ -328,9 +333,7 @@ public class MultiColumnLayoutCollectionViewLayout: UICollectionViewLayout {
     }
     
     public override var collectionViewContentSize: CGSize {
-        let sideInsets: CGFloat      = (collectionView?.contentInset.left ?? 0) + (collectionView?.contentInset.right ?? 0)
-        let topBottomInsets: CGFloat = (collectionView?.contentInset.top ?? 0) + (collectionView?.contentInset.bottom ?? 0)
-        return CGSize(width: collectionViewContentWidth - sideInsets, height: collectionViewContentHeight - topBottomInsets)
+        return CGSize(width: collectionViewContentWidth, height: collectionViewContentHeight)
     }
     
     public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -363,25 +366,11 @@ extension MultiColumnLayoutCollectionViewLayout {
     
     func sizeOfCell(inCollectionView collectionView: UICollectionView, forIndexPath indexPath: IndexPath) -> CGSize {
         let sizeForItem = dataSource?.collectionView(collectionView, sizeForItemAt: indexPath) ?? .zero
-        var estimatedSizeForItem = collectionView.dataSource?.collectionView(collectionView, cellForItemAt: indexPath).preferredLayoutAttributesFitting(UICollectionViewLayoutAttributes(forCellWith: indexPath)).size ?? sizeForItem
-        if estimatedSizeForItem.width == 0 {
-            estimatedSizeForItem.width = sizeForItem.width
-        }
-        if estimatedSizeForItem.height == 0 {
-            estimatedSizeForItem.height = sizeForItem.height
-        }
-        return estimatedSizeForItem
+        return sizeForItem
     }
     
     func sizeOfViewForSupplementaryElement(ofKind kind: String, inCollectionView collectionView: UICollectionView, forIndexPath indexPath: IndexPath) -> CGSize {
-        var viewSize: CGSize = dataSource?.collectionView(collectionView, sizeForSupplementaryElementOfKind: kind, section: indexPath.section) ?? .zero
-        var estimatedSizeForView = collectionView.dataSource?.collectionView?(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath).preferredLayoutAttributesFitting(UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: kind, with: indexPath)).size ?? viewSize
-        if estimatedSizeForView.width == 0 {
-            estimatedSizeForView.width = viewSize.width
-        }
-        if estimatedSizeForView.height == 0 {
-            estimatedSizeForView.height = viewSize.height
-        }
-        return estimatedSizeForView
+        let viewSize: CGSize = dataSource?.collectionView(collectionView, sizeForSupplementaryElementOfKind: kind, section: indexPath.section) ?? .zero
+        return viewSize
     }
 }
