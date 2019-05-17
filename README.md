@@ -5,7 +5,7 @@
 
 `MultiColumnLayout` is an implementation of a `UICollectionViewLayout` to support multiple columns, and distribute elements accordingly.
 
-![portrait](gifs/portrait.gif){:height="50%" width="50%"}
+![portrait](gifs/portrait.gif)
 ![landscape](gifs/landscape.gif)
 
 ## Example
